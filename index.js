@@ -42,20 +42,20 @@ const db = getDatabase(app);
 app2.post("/addSTORE", (req, res) => {
   var STORE_name = req.body.STORE_name;
   var STORE_login = req.body.STORE_login;
-  var STORE_login_password = req.body.STORE_login_password;
+  //   var STORE_login_password = req.body.STORE_login_password;
   var STORE_phone = req.body.STORE_phone;
   //   console.log(fullname);
   try {
     set(ref(db, "STORE_LOGIN/" + STORE_login), {
       STORE_name: STORE_name,
       STORE_login: STORE_login,
-      STORE_login_password: STORE_login_password,
       STORE_phone: STORE_phone,
       Date_Add: new Date() + "",
     });
     return res.status(200).json({
       status: 200,
       Message: "OK",
+     
     });
   } catch (error) {
     return res.status(500).json({
@@ -68,9 +68,14 @@ app2.post("/addSTORE", (req, res) => {
 
 //login
 app2.get("/get_STORE:?", (req, res) => {
-  var STORE_login = req.query.STORE_login;
-
-  get(ref(db, "STORE_LOGIN/" + STORE_login))
+  var STORE = req.query.STORE;
+  if (!STORE) {
+    return res.status(500).json({
+      status: 500,
+      Message: "STORE is null!",
+    });
+  }
+  get(ref(db, `STORE_LOGIN/${STORE}`))
     .then((snapshot) => {
       let data = snapshot.val();
       //   console.log(data);
@@ -97,16 +102,22 @@ app2.post("/STOREitem", (req, res) => {
   var item_name = req.body.item_name;
   var item_price = req.body.item_price;
   var item_number = req.body.item_number;
-    var item_URL = req.body.item_URL;
+  var item_URL = req.body.item_URL;
   //   console.log(fullname);
   try {
-    set(ref(db, "STORE_LOGIN/" + STORE_login + "/store_item/"+`name:${item_name}`), {
-      item_name: item_name,
-      item_price: item_price,
-      item_number: item_number,
-	  item_URL: item_URL,
-      Date_Add: new Date() + "",
-    });
+    set(
+      ref(
+        db,
+        "STORE_LOGIN/" + STORE_login + "/store_item/" + `name:${item_name}`
+      ),
+      {
+        item_name: item_name,
+        item_price: item_price,
+        item_number: item_number,
+        item_URL: item_URL,
+        Date_Add: new Date() + "",
+      }
+    );
     return res.status(200).json({
       status: 200,
       Message: "OK",
