@@ -6,8 +6,7 @@ import bodyParser from "body-parser";
 var app2 = express();
 app2.use(bodyParser.json());
 app2.use(bodyParser.urlencoded({ extended: true }));
-var port = 4001;
-var server = app2.listen(port, console.log("server is run port " + port));
+var server = app2.listen(port, console.log("server is run port "));
 
 const firebaseConfig = {
   databaseURL:
