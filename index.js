@@ -9,8 +9,15 @@ app2.use(bodyParser.urlencoded({ extended: true }));
 var server = app2.listen(port, console.log("server is run port "));
 
 const firebaseConfig = {
+  apiKey: "AIzaSyDxCsjhTewPmc7Gxt1_UMHN1XA7e5dVZZo",
+  authDomain: "store-ba002-e5fd3.firebaseapp.com",
   databaseURL:
-    "https://store-ba002-e5fd3-default-rtdb.asia-southeast1.firebasedatabase.app/",
+    "https://store-ba002-e5fd3-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "store-ba002-e5fd3",
+  storageBucket: "store-ba002-e5fd3.appspot.com",
+  messagingSenderId: "394684814930",
+  appId: "1:394684814930:web:6c43ab02d2181beeb7f18b",
+  measurementId: "G-61M3LVYQ8M",
 };
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
@@ -54,7 +61,6 @@ app2.post("/addSTORE", (req, res) => {
     return res.status(200).json({
       status: 200,
       Message: "OK",
-     
     });
   } catch (error) {
     return res.status(500).json({
